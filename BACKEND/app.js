@@ -2,29 +2,25 @@ import express from "express";
 import { nanoid } from "nanoid";
 import dotenv from "dotenv";
 import connectDB from "./src/config/mongo.config.js";
-import ShortUrl from "./src/models/shorturl.model.js";
-import shorturl from "./src/routes/shorturl.rout.route.js";
+import shorturl from "./src/routes/shorturl.rout.js";
+import { redirectfronshorturl } from "./src/controller/shorturl.controller.js";
+import { errorHandler } from "./src/utils/errorhandler.js";
+import cors from "cors";
 
 
 dotenv.config("./.env")
+
 const app = express();
+app.use(cors());
 
 
 app.use(express.json());
-app.use(express.urlencoded({extended:true}))
-app.post("/api/create", shorturl);
+app.use(express.urlencoded({extended:true}));
 
+app.use("/api/create", shorturl);
+app.get("/:id", redirectfronshorturl)
 
-app.get("/:id", async(req, res)=>{
-  const {id} = req.params
-  const url = await ShortUrl.findOne({short_url:id})
-  if(url){
-    res.redirect(url.full_url)
-  }else{
-    res.status(404).send("Not Found")
-  }
-})
-
+app.use(errorHandler)
 app.listen(5000, ()=>{
   connectDB()
   console.log("server is running on http://localhost:5000");
