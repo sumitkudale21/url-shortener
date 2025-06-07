@@ -3,6 +3,7 @@ import { nanoid } from "nanoid";
 import dotenv from "dotenv";
 import connectDB from "./src/config/mongo.config.js";
 import shorturl from "./src/routes/shorturl.rout.js";
+import auth_routes from "./src/routes/auth.routes.js";
 import { redirectfronshorturl } from "./src/controller/shorturl.controller.js";
 import { errorHandler } from "./src/utils/errorhandler.js";
 import cors from "cors";
@@ -17,6 +18,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
+app.use("/api/auth", auth_routes);
 app.use("/api/create", shorturl);
 app.get("/:id", redirectfronshorturl)
 

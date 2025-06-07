@@ -1,6 +1,7 @@
 import axios from 'axios'
 import e from 'cors'
 import React, { useState } from 'react'
+import { creatShortUrl } from '../api/shortUrl.api'
 
 const UrlForm = () => {
 
@@ -10,11 +11,11 @@ const UrlForm = () => {
   
 
   const handleSubmit = async() => {
-    const {data} = await axios.post("http://localhost:5000/api/create", {url})
-    setShortUrl(data)
+    const shortUrl = await creatShortUrl(url)
+    setShortUrl(shortUrl)
   }
 
-  const query = useQuery({ queryKey: ['todos'], queryFn: getTodos })
+  
 
   const handleCopy = () => {
     navigator.clipboard.writeText(shorturl);
