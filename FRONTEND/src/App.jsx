@@ -1,10 +1,12 @@
 import React from 'react'
-import HomePage from './pages/HomePage'
+// import HomePage from './pages/HomePage'
+import LoginForm from './components/LoginForm'
+import { useSelector } from 'react-redux'
 
 const App = () => {
   return (
     <>
-      <HomePage/>
+      <LoginForm/>
     </>
   )
 }
