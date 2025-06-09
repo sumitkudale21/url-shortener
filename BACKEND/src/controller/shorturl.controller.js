@@ -1,6 +1,6 @@
 import { getShortUrl, getCustomShortUrl } from "../dao/shorturl.js"
 import { createShortUrlWithoutUser, createShortUrlWithUser } from "../services/shorturl.service.js"
-import wrapAsync from "../utils/tryCatchWrapper.js"
+import wrapAsync from "../utils/trycatchwrapper.js"
 
 export const createShortUrl = wrapAsync(async (req,res)=>{
     const data = req.body
